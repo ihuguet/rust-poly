@@ -17,10 +17,6 @@ impl IfaceTrait for EthernetIface {
         "ethernet"
     }
 
-    fn into_iface(self) -> super::Iface {
-        Iface::Ethernet(self)
-    }
-
     // Cast to concrete type (option 1): use Any, better combined with `trait AsIfaceType`
     fn as_any(&self) -> &dyn std::any::Any {
         self
@@ -39,5 +35,11 @@ impl IfaceTrait for EthernetIface {
     // Find out the concrete type: using a separate enum IfaceType. Does not perform the type cast
     fn iface_type(&self) -> IfaceType {
         IfaceType::Ethernet
+    }
+}
+
+impl From<EthernetIface> for Iface {
+    fn from(value: EthernetIface) -> Self {
+        Iface::Ethernet(value)
     }
 }

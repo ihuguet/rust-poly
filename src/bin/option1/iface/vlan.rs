@@ -17,10 +17,6 @@ impl IfaceTrait for VlanIface {
         "vlan"
     }
 
-    fn into_iface(self) -> super::Iface {
-        Iface::Vlan(self)
-    }
-
     // Cast to concrete type (option 1): use Any, better combined with `trait AsIfaceType`
     fn as_any(&self) -> &dyn std::any::Any {
         self
@@ -39,5 +35,11 @@ impl IfaceTrait for VlanIface {
     // Find out the concrete type: using a separate enum IfaceType. Does not perform the type cast
     fn iface_type(&self) -> IfaceType {
         IfaceType::Vlan
+    }
+}
+
+impl From<VlanIface> for Iface {
+    fn from(value: VlanIface) -> Self {
+        Iface::Vlan(value)
     }
 }

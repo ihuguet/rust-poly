@@ -23,8 +23,6 @@ pub enum IfaceRef<'a> {
 pub trait IfaceTrait: Any {
     fn name(&self) -> &str;
 
-    fn into_iface(self) -> Iface;
-
     // Cast to concrete type (option 1): use Any, better combined with `trait AsIfaceType`
     fn as_any(&self) -> &dyn Any;
 
